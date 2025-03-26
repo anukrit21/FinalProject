@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to DemoApp</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-top: -20px;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4a6fa5;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .feature {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+        .feature h3 {
+            color: #4a6fa5;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to DemoApp!</h1>
+        </div>
+        <div class="content">
+            <p>Hello <span th:text="${name}">User</span>,</p>
+            <p>Thank you for joining DemoApp! We're excited to have you on board.</p>
+            
+            <p>With DemoApp, you can:</p>
+            
+            <div class="feature">
+                <h3>Browse and Subscribe to Mess Services</h3>
+                <p>Find the best mess services near you and subscribe to meal plans that fit your schedule and preferences.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>Manage Your Meal Plans</h3>
+                <p>Easily view, modify, or cancel your subscriptions from your dashboard.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>Stay Updated</h3>
+                <p>Get notifications about your meals, special offers, and more.</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px;">
+                <a class="button" th:href="${frontendUrl}">Visit Your Dashboard</a>
+            </p>
+            
+            <p>If you have any questions or need assistance, feel free to contact our support team.</p>
+            
+            <p>Best regards,<br>The DemoApp Team</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 DemoApp. All rights reserved.</p>
+            <p>This email was sent to you as part of your DemoApp account.</p>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,51 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: mess-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: "Nut@n803212"  # Make sure to keep credentials secure (Use environment variables instead)
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # ✅ Correct dialect setting
+
+  cloud:
+    config:
+      enabled: false  # ✅ Correct way to disable Spring Cloud Config
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: d3f4237d8139b7ceee36a2fef4ca56753f5c60efc319da478847bf4675e329f1
+    expiration: 86400000  # 24 hours in milliseconds
+    refresh-expiration: 604800000  # 7 days in milliseconds
+  
+  minio:
+    endpoint: http://localhost:9000
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucket:
+      subscription-images: subscription-images
+      menu-images: menu-images
+      mess-images: mess-images
+      user-images: user-images
+
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - http://localhost:8080
+      - http://localhost:8081
+

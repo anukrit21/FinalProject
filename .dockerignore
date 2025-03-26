@@ -1,0 +1,83 @@
+# Git files
+.git
+.github
+.gitignore
+
+# Build files
+**/target/
+**/build/
+**/out/
+**/node_modules/
+**/dist/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+**/.settings/
+**/.classpath
+**/.project
+
+# Logs
+**/logs/
+**/*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Docker files (avoid recursive copies)
+Dockerfile
+docker-compose*.yml
+
+# Documentation and markdown files
+README.md
+CHANGELOG.md
+LICENSE
+**/*.md
+
+# Specific backup directories
+backup/
+
+# Maven wrapper
+.mvn/wrapper/
+
+# Test reports
+**/test-output/
+**/reports/
+**/jacoco/
+
+# Other unnecessary files
+*.jar
+*.zip
+*.tar
+*.gz
+
+# Maven
+target/
+!**/target/*.jar
+*.class
+*.war
+*.ear
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Node.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.node_repl_history
+.yarn-integrity
+
+# OS specific
+ehthumbs.db
+Desktop.ini 

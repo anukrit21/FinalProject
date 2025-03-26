@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Confirmation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-top: -20px;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4a6fa5;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .subscription-details {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #4a6fa5;
+        }
+        .subscription-details h3 {
+            color: #4a6fa5;
+            margin-top: 0;
+        }
+        .tips {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 5px;
+        }
+        .tips h3 {
+            color: #4a6fa5;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Subscription Confirmed!</h1>
+        </div>
+        <div class="content">
+            <p>Hello <span th:text="${name}">User</span>,</p>
+            <p>Thank you for subscribing to <strong th:text="${subscriptionName}">Subscription Name</strong> from <strong th:text="${messName}">Mess Name</strong>. Your subscription has been confirmed and is now active.</p>
+            
+            <div class="subscription-details">
+                <h3>Subscription Details</h3>
+                <p><strong>Plan:</strong> <span th:text="${subscriptionName}">Subscription Name</span></p>
+                <p><strong>Provider:</strong> <span th:text="${messName}">Mess Name</span></p>
+                <p><strong>Status:</strong> Active</p>
+                <p>You can view your subscription details and manage your subscription from your account dashboard.</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px;">
+                <a class="button" th:href="${frontendUrl + '/subscriptions'}">View My Subscriptions</a>
+            </p>
+            
+            <div class="tips">
+                <h3>Helpful Tips</h3>
+                <ul>
+                    <li>You can view and manage all your active subscriptions in your dashboard.</li>
+                    <li>Need to modify your subscription? You can do so from your account settings.</li>
+                    <li>Have questions or need support? Contact the mess provider or our customer service team.</li>
+                </ul>
+            </div>
+            
+            <p>Thank you for choosing DemoApp for your meal subscription needs!</p>
+            
+            <p>Best regards,<br>The DemoApp Team</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 DemoApp. All rights reserved.</p>
+            <p>This email was sent to you as part of your DemoApp account.</p>
+        </div>
+    </div>
+</body>
+</html> 

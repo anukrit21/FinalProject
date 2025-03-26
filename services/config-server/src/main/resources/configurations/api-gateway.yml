@@ -1,0 +1,100 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # User service routes
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - RewritePath=/api/users/(?<segment>.*), /${segment}
+        
+        # Auth service routes
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/(?<segment>.*), /${segment}
+        
+        # Owner service routes
+        - id: owner-service
+          uri: lb://owner-service
+          predicates:
+            - Path=/api/owners/**
+          filters:
+            - RewritePath=/api/owners/(?<segment>.*), /${segment}
+        
+        # Mess service routes
+        - id: mess-service
+          uri: lb://mess-service
+          predicates:
+            - Path=/api/mess/**
+          filters:
+            - RewritePath=/api/mess/(?<segment>.*), /${segment}
+
+        # OTP service routes
+        - id: otp-service
+          uri: lb://otp-service
+          predicates:
+            - Path=/api/otp/**
+          filters:
+            - RewritePath=/api/otp/(?<segment>.*), /${segment}
+            
+        # Subscription service routes
+        - id: subscription-service
+          uri: lb://subscription-service
+          predicates:
+            - Path=/api/subscriptions/**
+          filters:
+            - RewritePath=/api/subscriptions/(?<segment>.*), /${segment}
+        
+        # Payment service routes
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payments/**
+          filters:
+            - RewritePath=/api/payments/(?<segment>.*), /${segment}
+
+        # Admin service routes
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/api/admin/**
+          filters:
+            - RewritePath=/api/admin/(?<segment>.*), /${segment}
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+
+jwt:
+  secret: ${JWT_SECRET:yourJwtSecretKey}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    reactor.netty: INFO
+    com.demoApp.apigateway: INFO 

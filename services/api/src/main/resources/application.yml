@@ -1,0 +1,127 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # User service routes
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - RewritePath=/api/users/(?<segment>.*), /$\{segment}
+        
+        # Auth service routes
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/(?<segment>.*), /$\{segment}
+        
+        # Owner service routes
+        - id: owner-service
+          uri: lb://owner-service
+          predicates:
+            - Path=/api/owners/**
+          filters:
+            - RewritePath=/api/owners/(?<segment>.*), /$\{segment}
+        
+        # Mess service routes
+        - id: mess-service
+          uri: lb://mess-service
+          predicates:
+            - Path=/api/mess/**
+          filters:
+            - RewritePath=/api/mess/(?<segment>.*), /$\{segment}
+
+        # OTP service routes
+        - id: otp-service
+          uri: lb://otp-service
+          predicates:
+            - Path=/api/otp/**
+          filters:
+            - RewritePath=/api/otp/(?<segment>.*), /$\{segment}
+            
+        # Subscription service routes
+        - id: subscription-service
+          uri: lb://subscription-service
+          predicates:
+            - Path=/api/subscriptions/**
+          filters:
+            - RewritePath=/api/subscriptions/(?<segment>.*), /$\{segment}
+        
+        # Payment service routes
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payments/**
+          filters:
+            - RewritePath=/api/payments/(?<segment>.*), /$\{segment}
+
+        # Admin service routes
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/api/admin/**
+          filters:
+            - RewritePath=/api/admin/(?<segment>.*), /$\{segment}
+            
+        # Menu service routes
+        - id: menu-service
+          uri: lb://menu-service
+          predicates:
+            - Path=/api/menu/**
+          filters:
+            - RewritePath=/api/menu/(?<segment>.*), /$\{segment}
+            
+        # Campus service routes
+        - id: campus-service
+          uri: lb://campus-service
+          predicates:
+            - Path=/api/campus/**
+          filters:
+            - RewritePath=/api/campus/(?<segment>.*), /$\{segment}
+            
+        # Delivery service routes
+        - id: delivery-service
+          uri: lb://delivery-service
+          predicates:
+            - Path=/api/delivery/**
+          filters:
+            - RewritePath=/api/delivery/(?<segment>.*), /$\{segment}
+
+    config:
+      uri: http://config-server:8888
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        initial-interval: 1500
+        max-interval: 10000
+        multiplier: 1.5
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    reactor.netty: INFO 
