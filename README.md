@@ -397,3 +397,4 @@ Each service is containerized and can be deployed independently. Communication b
 2. Asynchronous messaging via Kafka
 3. Service discovery through Eureka
 "# FinalProject" 
+"# DemoApp" 
