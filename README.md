@@ -396,3 +396,4 @@ Each service is containerized and can be deployed independently. Communication b
 1. RESTful API calls
 2. Asynchronous messaging via Kafka
 3. Service discovery through Eureka
+"# FinalProject" 
