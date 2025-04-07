@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/services/admin/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/admin/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/api/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/api/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/authentication/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/campus-module/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/campus-module/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/common-kafka/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/common-kafka/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/config-server/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/config-server/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/delivery/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/delivery/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/discovery/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/discovery/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/menu-module/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/menu-module/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/mess/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/otp/src/main/java/com/demoApp/otp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/otp/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/owner/src/main/java/com/demoApp/owner" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/owner/src/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/payment/src/main/java/com/demoApp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/payment/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/subscription/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/subscription/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/user/src/main/java/com/demoApp/user" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/services/user/src/test/java" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

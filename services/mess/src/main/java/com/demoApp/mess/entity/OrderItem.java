@@ -35,13 +35,23 @@ public class OrderItem {
     @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 
-    public void setMenuItemId(Long menuItemId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setMenuItemId'");
-    }
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
 
-    public void setOrder(MessOrder order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setOrder'");
-    }
+
+public void setMenuId(Long menuId) {
+    this.menu = new Menu();
+    this.menu.setId(menuId);
+}
+
+
+@ManyToOne
+@JoinColumn(name = "order_id")
+private MessOrder order;
+
+public void setOrder(MessOrder order) {
+    this.order = order;
+}
+
 }

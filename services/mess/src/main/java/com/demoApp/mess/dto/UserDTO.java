@@ -34,9 +34,9 @@ public class UserDTO {
     private String phoneNumber;
     private String profileImageUrl;
     private String address;
-    private RoleType role;  // Use RoleType instead of User.Role
+    private RoleType role; 
     private boolean active;
-    private boolean enabled;  // Ensure 'enabled' exists in User
+    private boolean enabled;  
     private boolean emailVerified;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -48,7 +48,8 @@ public class UserDTO {
         }
     
         // Map User.Role to RoleType
-        RoleType roleType = RoleType.valueOf(user.getRole().name());  
+        RoleType roleType = RoleType.valueOf(user.getRole().name());
+ 
     
         return UserDTO.builder()
                 .id(user.getId())
@@ -60,9 +61,9 @@ public class UserDTO {
                 .phoneNumber(user.getPhoneNumber())
                 .profileImageUrl(user.getProfileImageUrl())
                 .address(user.getAddress())
-                .role(roleType)  // Use the mapped RoleType here
+                .role(user.getRole()) 
                 .active(user.isActive())
-                .enabled(user.isEnabled())  // Ensure User has isEnabled()
+                .enabled(user.isEnabled())  
                 .emailVerified(user.isEmailVerified())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())

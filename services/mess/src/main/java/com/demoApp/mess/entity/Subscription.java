@@ -101,8 +101,10 @@ public class Subscription {
         updatedAt = LocalDateTime.now();
     }
 
-    public void setMealTypes(String mealTypes) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setMealTypes'");
-    }
+        private String mealTypes; 
+
+        public void setMealTypes(String mealTypes) {
+            this.mealTypes = mealTypes;
+        }
+
 }

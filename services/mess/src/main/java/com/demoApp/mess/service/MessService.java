@@ -43,26 +43,26 @@ public class MessService {
     }
 
     @Transactional
-    public Mess createMess(MessDTO messDTO, String role) {
-        log.debug("Creating new mess with email: {}", messDTO.getEmail());
+public Mess createMess(MessDTO messDTO, String role) {
+    log.debug("Creating new mess with email: {}", messDTO.getEmail());
 
-        if (messRepository.existsByEmail(messDTO.getEmail())) {
-            throw new DuplicateResourceException("Email is already registered");
-        }
-
-        Mess mess = Mess.builder()
-                .name(messDTO.getName())
-                .email(messDTO.getEmail())
-                .password(passwordEncoder.encode(messDTO.getPassword()))
-                .messName(messDTO.getMessName())
-                .contactNumber(messDTO.getContactNumber())
-                .location(messDTO.getLocation())
-                .approved(false)
-                .role(role)
-                .build();
-
-        return messRepository.save(mess);
+    if (messRepository.existsByEmail(messDTO.getEmail())) {
+        throw new DuplicateResourceException("Email is already registered");
     }
+
+    Mess mess = Mess.builder()
+            .name(messDTO.getName()) 
+            .email(messDTO.getEmail())
+            .password(passwordEncoder.encode(messDTO.getPassword()))
+            .contactNumber(messDTO.getContactNumber())
+            .location(messDTO.getLocation())
+            .approved(false)
+            .role(Mess.Role.valueOf(role.toUpperCase()))  
+            .build();
+
+    return messRepository.save(mess);
+}
+
 
     @Transactional
     public Mess updateMess(Long id, MessDTO messDTO) {
@@ -71,19 +71,17 @@ public class MessService {
         Mess mess = messRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Mess not found with ID: " + id));
 
-        // Check email uniqueness only if it's being changed
         if (!mess.getEmail().equals(messDTO.getEmail()) &&
                 messRepository.existsByEmail(messDTO.getEmail())) {
             throw new ResourceNotFoundException("Email is already registered");
         }
 
-        mess.setName(messDTO.getName());
+        // Mapping messName from DTO to 'name' in entity
+        mess.setName(messDTO.getName()); 
         mess.setEmail(messDTO.getEmail());
-        mess.setMessName(messDTO.getMessName());
         mess.setContactNumber(messDTO.getContactNumber());
         mess.setLocation(messDTO.getLocation());
 
-        // Update password only if provided
         if (messDTO.getPassword() != null && !messDTO.getPassword().isEmpty()) {
             mess.setPassword(passwordEncoder.encode(messDTO.getPassword()));
         }

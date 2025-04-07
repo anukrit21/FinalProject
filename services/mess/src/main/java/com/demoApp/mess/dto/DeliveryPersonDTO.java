@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class DeliveryPersonDTO {
     private Long id;
     
+    
     // Basic information
     private String name;
     private String email;

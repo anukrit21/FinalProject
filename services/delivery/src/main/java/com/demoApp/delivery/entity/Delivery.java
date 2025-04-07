@@ -49,6 +49,7 @@ public class Delivery {
     private LocalDateTime pickedUpTime;
     private LocalDateTime deliveredTime;
     private LocalDateTime assignedAt;
+    private LocalDateTime cancelledTime;
 
     private double deliveryFee;
     private double extraCharges; // Extra charges for on-demand home delivery
@@ -89,55 +90,47 @@ public class Delivery {
         return pickedUpAt;
     }
 
-    public void setCancelledAt(LocalDateTime now) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCancelledAt'");
+    public void setCancelledAt(LocalDateTime cancelledTime) {
+        this.cancelledTime = cancelledTime;
     }
+    
+    
 
-    public void setDeliveredAt(LocalDateTime now) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDeliveredAt'");
+    public void setDeliveredAt(LocalDateTime deliveredTime) {
+        this.deliveredTime = deliveredTime;
     }
-
-    public void setInTransitAt(LocalDateTime now) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setInTransitAt'");
+    
+    public void setInTransitAt(LocalDateTime inTransitTime) {
+        // You can either use a dedicated field or reuse pickedUpTime, depending on design
+        this.pickedUpTime = inTransitTime;
     }
-
-    public void setPickedUpAt(LocalDateTime now) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPickedUpAt'");
+    
+    public void setPickedUpAt(LocalDateTime pickedUpTime) {
+        this.pickedUpTime = pickedUpTime;
     }
+    
 
     public void setDestinationAddress(Object destinationAddress) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDestinationAddress'");
+        this.deliveryAddress = destinationAddress.toString();
     }
-
-    public void setDestinationLatitude(int destinationLatitude) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDestinationLatitude'");
-    }
-
-    public void setDestinationLongitude(int destinationLongitude) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDestinationLongitude'");
-    }
-
-    public void setRecipientName(Object recipientName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRecipientName'");
-    }
-
-    public void setRecipientPhone(Object recipientPhone) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRecipientPhone'");
-    }
-
-    public void setDeliveryInstructions(Object deliveryInstructions) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDeliveryInstructions'");
-    }   
-   
     
-}
+    public void setDestinationLatitude(int destinationLatitude) {
+        this.deliveryLatitude = destinationLatitude;
+    }
+    
+    public void setDestinationLongitude(int destinationLongitude) {
+        this.deliveryLongitude = destinationLongitude;
+    }
+    
+    public void setRecipientName(Object recipientName) {
+        this.customerName = recipientName.toString();
+    }
+    
+    public void setRecipientPhone(Object recipientPhone) {
+        this.customerPhone = recipientPhone.toString();
+    }
+    
+    public void setDeliveryInstructions(Object deliveryInstructions) {
+        this.specialInstructions = deliveryInstructions.toString();
+    }
+}    

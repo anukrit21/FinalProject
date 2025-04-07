@@ -11,7 +11,6 @@ import com.demoApp.mess.repository.UserRepository;
 
 @Component
 public class UserSecurity {
-
     private final UserRepository userRepository;
 
     public UserSecurity(UserRepository userRepository) {
@@ -19,32 +18,17 @@ public class UserSecurity {
     }
 
     /**
-     * Checks if the authenticated user is the same as the one being accessed.
-     * 
-     * @param userId The ID of the user being accessed
-     * @return true if the authenticated user is the same as the user being accessed
+     * Maps User.Role to RoleType
      */
-    public boolean isCurrentUser(Long userId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return false;
+    private RoleType mapUserRoleToRoleType(User.Role userRole) {
+        if (userRole == null) return null;
+        try {
+            return RoleType.valueOf(userRole.name());
+        } catch (IllegalArgumentException e) {
+            return null;
         }
-        Object principal = authentication.getPrincipal();
-        if (!(principal instanceof UserDetails)) {
-            return false;
-        }
-        String username = ((UserDetails) principal).getUsername();
-        return userRepository.findByUsername(username)
-                .map((User user) -> user.getId().equals(userId))
-                .orElse(false);
     }
 
-    /**
-     * Check if the current user is the owner of the mess or an admin.
-     *
-     * @param messId The ID of the mess to check ownership for
-     * @return true if the current user is the owner of the mess or an admin
-     */
     public boolean isMessOwnerOrAdmin(Long messId) {
         if (messId == null) {
             return false;
@@ -54,11 +38,12 @@ public class UserSecurity {
             return false;
         }
         // Check if user is admin
-        if (currentUser.getRole() != null && currentUser.getRole().equals(RoleType.ADMIN)) {
+        RoleType userRoleType = mapUserRoleToRoleType(currentUser.getRole());
+        if (userRoleType != null && userRoleType == RoleType.ADMIN) {
             return true;
         }
-        // Check if user is mess owner (placeholder implementation)
-        return false;
+        // Check if user is mess owner
+        return userRoleType == RoleType.MESS_OWNER;
     }
 
     public boolean isMess() {
@@ -77,13 +62,7 @@ public class UserSecurity {
         return hasRole(RoleType.MESS) || hasRole(RoleType.ADMIN);
     }
 
-    /**
-     * Checks if the current user has the specified role.
-     *
-     * @param role The role to check
-     * @return true if the current user has the specified role, false otherwise
-     */
-    public boolean hasRole(RoleType role) {
+    public boolean hasRole(RoleType roleType) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             return false;
@@ -94,15 +73,13 @@ public class UserSecurity {
         }
         String username = ((UserDetails) principal).getUsername();
         return userRepository.findByUsername(username)
-                .map((User user) -> user.getRole() != null && user.getRole().equals(role))
+                .map(user -> {
+                    RoleType userRoleType = mapUserRoleToRoleType(user.getRole());
+                    return userRoleType != null && userRoleType == roleType;
+                })
                 .orElse(false);
     }
 
-    /**
-     * Retrieves the current authenticated user.
-     * 
-     * @return The authenticated user, or null if not authenticated
-     */
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -116,11 +93,6 @@ public class UserSecurity {
         return userRepository.findByUsername(username).orElse(null);
     }
 
-    /**
-     * Retrieves the current authenticated user's ID.
-     * 
-     * @return The user ID, or null if not authenticated
-     */
     public Long getCurrentUserId() {
         User currentUser = getCurrentUser();
         return currentUser != null ? currentUser.getId() : null;

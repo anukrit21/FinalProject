@@ -65,33 +65,28 @@ public class DeliveryDTO {
     
     private String specialInstructions;
 
-    public Object getDestinationAddress() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDestinationAddress'");
+    public String getDestinationAddress() {
+        return this.deliveryAddress;
     }
-
-    public int getDestinationLatitude() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDestinationLatitude'");
+    
+    public double getDestinationLatitude() {
+        return this.deliveryLatitude;
     }
-
-    public int getDestinationLongitude() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDestinationLongitude'");
+    
+    public double getDestinationLongitude() {
+        return this.deliveryLongitude;
     }
-
-    public Object getRecipientName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipientName'");
+    
+    public String getRecipientName() {
+        return this.customerName;
     }
-
-    public Object getRecipientPhone() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecipientPhone'");
+    
+    public String getRecipientPhone() {
+        return this.customerPhone;
     }
-
-    public Object getDeliveryInstructions() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDeliveryInstructions'");
+    
+    public String getDeliveryInstructions() {
+        return this.specialInstructions;
     }
+    
 }

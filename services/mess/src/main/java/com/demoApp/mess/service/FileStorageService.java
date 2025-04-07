@@ -46,8 +46,21 @@ public class FileStorageService {
         }
     }
 
-    public String uploadUserImage(MultipartFile image) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'uploadUserImage'");
+    public String storeFile(MultipartFile file) {
+        try {
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            Path targetLocation = Path.of(uploadDir, "uploads", fileName); 
+            Files.createDirectories(targetLocation.getParent());          
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            return "uploads/" + fileName; 
+        } catch (IOException ex) {
+            throw new RuntimeException("Could not store file " + file.getOriginalFilename(), ex);
+        }
     }
+    
+
+    public String uploadUserImage(MultipartFile image) {
+        return uploadFile(image, "user-images");
+    }
+    
 }

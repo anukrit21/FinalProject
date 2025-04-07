@@ -54,4 +54,9 @@ public class DeliveryPerson {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    public void setIdProofUrl(String fileName) {
+        this.idProofImageUrl = fileName;
+    }
+    
 }

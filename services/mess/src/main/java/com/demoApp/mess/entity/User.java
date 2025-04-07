@@ -41,6 +41,8 @@ public class User {
     private String address;
     private String profileImageUrl;
 
+    private LocalDateTime lastLoginAt;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -51,6 +53,12 @@ public class User {
     @Builder.Default
     private boolean enabled = false;
 
+    @Builder.Default
+    private boolean emailVerified = false;
+
+    @Builder.Default
+    private boolean locked = false;
+
     private String resetToken;
     private LocalDateTime resetTokenExpiry;
 
@@ -59,17 +67,6 @@ public class User {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime updatedAt;
-
-    @Builder.Default
-    private boolean locked = false;
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
 
     @PrePersist
     protected void onCreate() {
@@ -83,18 +80,23 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 
-    
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
     public String getFullName() {
         return (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "");
     }
 
     public boolean isEmailVerified() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmailVerified'");
+        return emailVerified;
     }
 
     public LocalDateTime getLastLoginAt() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLastLoginAt'");
+        return lastLoginAt;
     }
 }

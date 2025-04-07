@@ -225,29 +225,30 @@ public class DeliveryService {
             case PENDING:  
                 break;
         }
+    } 
+    
+       
+    @Transactional
+        public DeliveryDTO updateDelivery(Long id, DeliveryDTO deliveryDTO) {
+    Delivery delivery = deliveryRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Delivery not found with ID: " + id));
+    
+    // Update fields that are allowed to be updated
+    if (deliveryDTO.getDestinationAddress() != null) {
+        delivery.setDeliveryAddress(deliveryDTO.getDestinationAddress()); // Changed to setDeliveryAddress
     }
     
+    // Update latitude with proper type casting
+    if (deliveryDTO.getDestinationLatitude() != 0) {
+        delivery.setDeliveryLatitude(deliveryDTO.getDestinationLatitude()); // Changed to setDeliveryLatitude
+    }
     
-    
-    
-    @Transactional
-    public DeliveryDTO updateDelivery(Long id, DeliveryDTO deliveryDTO) {
-        Delivery delivery = deliveryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Delivery not found with ID: " + id));
-        
-        // Update fields that are allowed to be updated
-        if (deliveryDTO.getDestinationAddress() != null) {
-            delivery.setDestinationAddress(deliveryDTO.getDestinationAddress());
-        }
-        
-        if (deliveryDTO.getDestinationLatitude() != 0) {
-            delivery.setDestinationLatitude(deliveryDTO.getDestinationLatitude());
-        }
-        
-        if (deliveryDTO.getDestinationLongitude() != 0) {
-            delivery.setDestinationLongitude(deliveryDTO.getDestinationLongitude());
-        }
-        
+    // Update longitude with proper type casting
+    if (deliveryDTO.getDestinationLongitude() != 0) {
+        delivery.setDeliveryLongitude(deliveryDTO.getDestinationLongitude()); // Changed to setDeliveryLongitude
+    } 
+   
+       
         if (deliveryDTO.getRecipientName() != null) {
             delivery.setRecipientName(deliveryDTO.getRecipientName());
         }

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.demoApp.mess.dto.UserDTO;
 import com.demoApp.mess.entity.User;
+import com.demoApp.mess.enums.RoleType;
 import com.demoApp.mess.exception.BadRequestException;
 import com.demoApp.mess.exception.ResourceNotFoundException;
 import com.demoApp.mess.repository.UserRepository;
@@ -28,8 +29,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final FileStorageService fileStorageService;
-    private final PasswordEncoder passwordEncoder;
     private final AuthService authService;
+
+    // Helper method to convert between RoleType and User.Role
+    private User.Role convertToUserRole(RoleType roleType) {
+        return User.Role.valueOf(roleType.name());
+    }
 
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
@@ -84,19 +89,16 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-        // Check if username is being changed and if it's already taken
         if (userDTO.getUsername() != null && !userDTO.getUsername().equals(user.getUsername()) &&
                 userRepository.existsByUsername(userDTO.getUsername())) {
             throw new BadRequestException("Username is already taken");
         }
 
-        // Check if email is being changed and if it's already registered
         if (userDTO.getEmail() != null && !userDTO.getEmail().equals(user.getEmail()) &&
                 userRepository.existsByEmail(userDTO.getEmail())) {
             throw new BadRequestException("Email is already registered");
         }
 
-        // Update user fields if provided
         if (userDTO.getUsername() != null) {
             user.setUsername(userDTO.getUsername());
         }
@@ -104,7 +106,7 @@ public class UserService {
             user.setEmail(userDTO.getEmail());
         }
         if (userDTO.getFirstName() != null) {
-            user.setUsername(userDTO.getFirstName());
+            user.setFirstName(userDTO.getFirstName()); // Fixed: was setting username instead of firstName
         }
         if (userDTO.getLastName() != null) {
             user.setLastName(userDTO.getLastName());
@@ -116,7 +118,7 @@ public class UserService {
             user.setAddress(userDTO.getAddress());
         }
         if (userDTO.getRole() != null) {
-            user.setRole(userDTO.getRole());
+            user.setRole(convertToUserRole(userDTO.getRole())); // Fixed: proper role conversion
         }
         if (userDTO.isActive() != user.isActive()) {
             user.setActive(userDTO.isActive());
@@ -134,12 +136,10 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-        // Delete old image if exists
         if (user.getProfileImageUrl() != null && !user.getProfileImageUrl().isEmpty()) {
             fileStorageService.deleteFile(user.getProfileImageUrl());
         }
 
-        // Upload new image
         String imageUrl = fileStorageService.uploadUserImage(image);
         user.setProfileImageUrl(imageUrl);
 
@@ -152,7 +152,6 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-        // Delete profile image if exists
         if (user.getProfileImageUrl() != null && !user.getProfileImageUrl().isEmpty()) {
             fileStorageService.deleteFile(user.getProfileImageUrl());
         }
@@ -188,15 +187,15 @@ public class UserService {
         return UserDTO.fromUser(currentUser);
     }
 
-    public List<UserDTO> getUsersByRole(User.Role role) {
-        return userRepository.findById(role).stream()
+    public List<UserDTO> getUsersByRole(RoleType roleType) { // Fixed: changed parameter type
+        return userRepository.findByRole(convertToUserRole(roleType)).stream() // Fixed: proper method call
                 .map(UserDTO::fromUser)
                 .collect(Collectors.toList());
     }
 
-    public Map<String, Object> getUsersByRolePaged(User.Role role, int page, int size) {
+    public Map<String, Object> getUsersByRolePaged(RoleType roleType, int page, int size) { // Fixed: changed parameter type
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<User> usersPage = userRepository.findEnabledUsersByRole(role, pageable);
+        Page<User> usersPage = userRepository.findEnabledUsersByRole(convertToUserRole(roleType), pageable); // Fixed: proper role conversion
         
         List<UserDTO> userDTOs = usersPage.getContent()
                 .stream()
@@ -216,4 +215,4 @@ public class UserService {
         LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
         return userRepository.countNewUsersAfterDate(thirtyDaysAgo);
     }
-} 
+}

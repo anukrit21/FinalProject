@@ -13,7 +13,8 @@ import java.util.List;
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
     
     List<MenuItem> findByMenuIdOrderByDisplayOrderAsc(Long menuId);
-    
+    List<MenuItem> findByMenuIdAndIsVegetarian(Long menuId, boolean isVegetarian);
+
     List<MenuItem> findByMenuIdAndCategory(Long menuId, MenuItemType category);
     
     @Query("SELECT mi FROM MenuItem mi WHERE mi.menu.owner.id = :ownerId AND mi.available = :available")

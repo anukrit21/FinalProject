@@ -8,7 +8,6 @@ import com.demoApp.menu_module.exception.ResourceNotFoundException;
 import com.demoApp.menu_module.repository.MenuItemRepository;
 import com.demoApp.menu_module.repository.MenuRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -125,12 +124,22 @@ public class MenuItemService {
     }
 
     public MenuItemDTO createMenuItem(MenuItemDTO menuItemDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createMenuItem'");
+        Menu menu = menuRepository.findById(menuItemDTO.getMenuId())
+                .orElseThrow(() -> new ResourceNotFoundException("Menu not found with id: " + menuItemDTO.getMenuId()));
+    
+        MenuItem menuItem = modelMapper.map(menuItemDTO, MenuItem.class);
+        menuItem.setMenu(menu);
+        
+        MenuItem savedMenuItem = menuItemRepository.save(menuItem);
+        return modelMapper.map(savedMenuItem, MenuItemDTO.class);
     }
+    
 
-    public Object getMenuItemsByMenuAndCategory(Long menuId, boolean b) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMenuItemsByMenuAndCategory'");
+    public List<MenuItemDTO> getMenuItemsByMenuAndCategory(Long menuId, boolean isVegetarian) {
+        return menuItemRepository.findByMenuIdAndIsVegetarian(menuId, isVegetarian)
+                .stream()
+                .map(item -> modelMapper.map(item, MenuItemDTO.class))
+                .collect(Collectors.toList());
     }
+    
 }
